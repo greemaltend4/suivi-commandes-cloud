@@ -13,10 +13,15 @@ mongoose.connect('mongodb://localhost/suivi-commandes', { useNewUrlParser: true,
 
 // Routes example
 app.get('/api/commands', (req, res) => {
-  res.json([
-    { id: 1, details: 'Commande #1: En route' },
-    { id: 2, details: 'Commande #2: Livrée' }
-  ]);
+  try {
+    res.json([
+      { id: 1, details: 'Commande #1: En route' },
+      { id: 2, details: 'Commande #2: Livrée' }
+    ]);
+  } catch (error) {
+    // Handle errors in route
+    res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des commandes.' });
+  }
 });
 
 app.listen(PORT, () => {
