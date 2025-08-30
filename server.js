@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// Middleware to parse JSON requests
 app.use(express.json());
 
-// Connexion à MongoDB
+// Connect to MongoDB
 mongoose.connect('mongodb://localhost/suivi-commandes', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connecté'))
   .catch(err => {
@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost/suivi-commandes', { useNewUrlParser: true,
     process.exit(1); // Exit process with failure
   });
 
-// Routes example
+// Example route to get commands
 app.get('/api/commands', (req, res) => {
   try {
     res.json([
@@ -33,6 +33,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
