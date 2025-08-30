@@ -9,7 +9,10 @@ app.use(express.json());
 // Connexion à MongoDB
 mongoose.connect('mongodb://localhost/suivi-commandes', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connecté'))
-  .catch(err => console.error(err));
+  .catch(err => {
+    console.error('Erreur de connexion à MongoDB:', err);
+    process.exit(1); // Exit process with failure
+  });
 
 // Routes example
 app.get('/api/commands', (req, res) => {
